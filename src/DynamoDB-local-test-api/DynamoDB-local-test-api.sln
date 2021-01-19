@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamoDB-local-test-api", "DynamoDB-local-test-api.csproj", "{24080296-169F-4C64-A487-8BFAB7BAF2CD}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{ECA843DC-A858-4273-8CF6-FE81EE75B68E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24080296-169F-4C64-A487-8BFAB7BAF2CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24080296-169F-4C64-A487-8BFAB7BAF2CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24080296-169F-4C64-A487-8BFAB7BAF2CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24080296-169F-4C64-A487-8BFAB7BAF2CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECA843DC-A858-4273-8CF6-FE81EE75B68E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECA843DC-A858-4273-8CF6-FE81EE75B68E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECA843DC-A858-4273-8CF6-FE81EE75B68E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECA843DC-A858-4273-8CF6-FE81EE75B68E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2AF101EA-4486-47FA-ABE6-FF84F9EDD5E7}
+	EndGlobalSection
+EndGlobal
