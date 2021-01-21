@@ -11,9 +11,9 @@ docker-compose down
 ``` 
 
 ## EndPoints
-[DynamoDB](http://localhost:8000)  
-[DynamoDB UI](http://localhost:8001)
-[DynamoDB Test API](https://localhost:5000/swagger/index.html)
+- [DynamoDB](http://localhost:8000)  
+- [DynamoDB UI](http://localhost:8001)
+- [DynamoDB Test API](https://localhost:5000/swagger/index.html)
 
 # Debug
 Enter VS and debug with docker compose
