@@ -30,9 +30,12 @@ namespace DynamoDB_local_test_api
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DynamoDB_local_test_api", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "DynamoDB_local_test_api", Version = "v1" });
+                options.OperationFilter<FileUploadOperationFilter>();
+              //  options.CustomOperationIds(e => $"{e.ActionDescriptor.RouteValues["controller"]}_{e.HttpMethod}");
+
             });
 
 

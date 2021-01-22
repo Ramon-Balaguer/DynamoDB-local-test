@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using DynamoDB_local_test_api.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using ThirdParty.Json.LitJson;
 
 namespace DynamoDB_local_test_api.Controllers
 {
@@ -46,7 +53,7 @@ namespace DynamoDB_local_test_api.Controllers
                         new AttributeDefinition
                         {
                             AttributeName = "Id",
-                            AttributeType = "N"
+                            AttributeType = "S"
                         }
                     },
                     KeySchema = new List<KeySchemaElement>
@@ -54,7 +61,7 @@ namespace DynamoDB_local_test_api.Controllers
                         new KeySchemaElement
                         {
                             AttributeName = "Id",
-                            KeyType = "HASH"  //Partition key
+                            KeyType = "HASH" //Partition key
                         }
                     },
                     ProvisionedThroughput = new ProvisionedThroughput
@@ -68,7 +75,6 @@ namespace DynamoDB_local_test_api.Controllers
             }
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
         public async Task<ActionResult<string>> Get(int id)
         {
@@ -86,7 +92,6 @@ namespace DynamoDB_local_test_api.Controllers
             return response.Item["Title"].S;
         }
 
-        // POST api/values
         [HttpPost]
         public async Task Post([FromBody] PostInput input)
         {
@@ -103,7 +108,32 @@ namespace DynamoDB_local_test_api.Controllers
             await _amazonDynamoDb.PutItemAsync(request);
         }
 
-        // DELETE api/values/5
+        
+        
+        [HttpPost]
+        [Route("UploadFile")]
+        public async Task UploadFile(IFormFile zipFile)
+        {
+            var streamFile = Request.Form.Files[0];
+            await using (var fileContentStream = new MemoryStream())
+            {
+                await streamFile.CopyToAsync(fileContentStream);
+                var json = System.Text.Encoding.Default.GetString(fileContentStream.ToArray());
+                var jsonArray = (JArray) JArray.Parse(json);
+                
+                var table = Table.LoadTable(_amazonDynamoDb, TableName);
+                var batch = table.CreateBatchWrite();
+                foreach (var jsonItem in jsonArray)
+                {
+                    var item = Document.FromJson(jsonItem.ToString());
+                    batch.AddDocumentToPut(item);
+                }
+                
+                await batch.ExecuteAsync();
+                //await table.PutItemAsync(item);
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

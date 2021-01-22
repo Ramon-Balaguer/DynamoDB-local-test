@@ -7,7 +7,7 @@ namespace DynamoDB_local_test_api.Model
 {
     public class PostInput
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
     }
 }
